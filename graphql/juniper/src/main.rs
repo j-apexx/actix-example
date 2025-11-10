@@ -21,13 +21,6 @@ async fn graphql_playground() -> impl Responder {
     web::Html::new(graphiql_source("/graphql", None))
 }
 
-/// GraphQL endpoint
-#[route("/graphql", method = "GET", method = "POST")]
-async fn graphql(st: web::Data<Schema>, data: web::Json<GraphQLRequest>) -> impl Responder {
-    let user = data.execute(&st, &()).await;
-    HttpResponse::Ok().json(user)
-}
-
 #[actix_web::main]
 async fn main() -> io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
