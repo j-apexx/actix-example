@@ -17,6 +17,18 @@ struct UploadForm {
     files: Vec<TempFile>,
 }
 
+async fn save_files(
+    MultipartForm(form): MultipartForm<UploadForm>,
+) -> Result<impl Responder, Error> {
+    for f in form.files {
+        let path = format!("./tmp/{}", f.file_name.unwrap());
+        log::info!("saving to {path}");
+        f.file.persist(path).unwrap();
+    }
+
+    Ok(HttpResponse::Ok())
+}
+
 async fn index() -> HttpResponse {
     let html = r#"<html>
         <head><title>Upload Test</title></head>
