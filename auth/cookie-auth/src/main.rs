@@ -10,6 +10,15 @@ use actix_web::{
 
 const ONE_MINUTE: Duration = Duration::minutes(1);
 
+async fn index(identity: Option<Identity>) -> actix_web::Result<impl Responder> {
+    let id = match identity.map(|id| id.id()) {
+        None => "anonymous".to_owned(),
+        Some(Ok(id)) => id,
+        Some(Err(err)) => return Err(error::ErrorInternalServerError(err)),
+    };
+
+    Ok(format!("Hello {id}"))
+}
 
 async fn login(req: HttpRequest) -> impl Responder {
     Identity::login(&req.extensions(), "user1".to_owned()).unwrap();
