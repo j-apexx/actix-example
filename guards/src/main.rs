@@ -28,26 +28,6 @@ mod v1 {
     }
 }
 
-mod v2 {
-    use super::*;
-
-    pub struct ApiGuard;
-
-    impl Guard for ApiGuard {
-        fn check(&self, ctx: &GuardContext<'_>) -> bool {
-            ctx.head()
-                .headers()
-                .get("Accept-Version")
-                .is_some_and(|hv| hv.as_bytes() == b"2")
-        }
-    }
-
-    #[get("/hello")]
-    pub async fn hello() -> impl Responder {
-        "Hello World from the awesome new v2 API!"
-    }
-}
-
 fn create_app() -> App<
     impl ServiceFactory<
         ServiceRequest,
