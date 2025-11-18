@@ -11,11 +11,6 @@ pub struct MyObj {
     pub name: String,
 }
 
-async fn index(msg: ProtoBuf<MyObj>) -> Result<HttpResponse> {
-    log::info!("model: {msg:?}");
-    HttpResponse::Ok().protobuf(msg.0) // <- send response
-}
-
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
