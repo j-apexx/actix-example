@@ -34,18 +34,6 @@ pub struct Disconnect {
     pub id: u64,
 }
 
-/// Send message to specific room
-#[derive(Message)]
-#[rtype(result = "()")]
-pub struct ClientMessage {
-    /// Id of the client session
-    pub id: u64,
-    /// Peer message
-    pub msg: String,
-    /// Room name
-    pub room: String,
-}
-
 /// List of available rooms
 pub struct ListRooms;
 
