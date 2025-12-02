@@ -27,13 +27,6 @@ pub struct Connect {
     pub addr: Recipient<Message>,
 }
 
-/// Session is disconnected
-#[derive(Message)]
-#[rtype(result = "()")]
-pub struct Disconnect {
-    pub id: u64,
-}
-
 /// Send message to specific room
 #[derive(Message)]
 #[rtype(result = "()")]
