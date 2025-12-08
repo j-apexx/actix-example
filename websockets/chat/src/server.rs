@@ -46,6 +46,13 @@ pub struct ClientMessage {
     pub room: String,
 }
 
+/// List of available rooms
+pub struct ListRooms;
+
+impl actix::Message for ListRooms {
+    type Result = Vec<String>;
+}
+
 /// Join room, if room does not exists create new one.
 #[derive(Message)]
 #[rtype(result = "()")]
