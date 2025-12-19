@@ -50,10 +50,6 @@ async fn get_count(count: web::Data<AtomicUsize>) -> impl Responder {
 async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
-    // set up applications state
-    // keep a count of the number of visitors
-    let app_state = Arc::new(AtomicUsize::new(0));
-
     // start chat server actor
     let server = server::ChatServer::new(app_state.clone()).start();
 
