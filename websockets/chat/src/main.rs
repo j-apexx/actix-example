@@ -39,6 +39,12 @@ async fn chat_route(
     )
 }
 
+/// Displays state
+async fn get_count(count: web::Data<AtomicUsize>) -> impl Responder {
+    let current_count = count.load(Ordering::SeqCst);
+    format!("Visitors: {current_count}")
+}
+
 // the actor-based WebSocket examples REQUIRE `actix_web::main` for actor support
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
